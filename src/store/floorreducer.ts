@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialAccess = [true, false, false, false, false]; 
+const initialAccess = [false , false, false, false, false]; 
 
 export const floorSlice = createSlice({
   name: "floorAccess",

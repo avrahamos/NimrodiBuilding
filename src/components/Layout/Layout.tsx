@@ -1,10 +1,14 @@
-import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import React, { ReactNode } from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useBuildingData from "../../utils/BuildingDataProvider";
 import "./Layout.css";
 
-const Layout: React.FC = () => {
+interface Props {
+  children?: ReactNode;
+}
+
+const Layout: React.FC<Props> = ({ children }) => {
   const floorAccess = useSelector(
     (state: {
       floorAccess: {
@@ -19,16 +23,18 @@ const Layout: React.FC = () => {
       <nav className="navbar">
         <h1>מגדל נמרודי</h1>
         <div className="nav-links">
-            <Link to="/">Home</Link>
-          {floorAccess.map((floor: boolean, index: number) => (
-            <Link key={index} to={`/floor/${index}`}>
-              {getFloorByIndex(index)?.purpose || `Floor ${index + 1}`}
-            </Link>
-          ))}
+          <Link to="/">Home</Link>
+          {floorAccess.map((hasAccess: boolean, index: number) =>
+            hasAccess ? (
+              <Link to={`/floor/${index}`}>
+                {getFloorByIndex(index)?.purpose || `Floor ${index + 1}`}
+              </Link>
+            ) : null
+          )}
         </div>
       </nav>
 
-      <Outlet />
+      {children}
 
       <footer className="layout-footer">
         <h2>About מגדל נמרודי</h2>
