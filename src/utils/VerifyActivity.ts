@@ -6,8 +6,15 @@ interface IuseActivityParams {
   activities: string[];
 }
 
-const useIsVerified = ({ activity, role, activities }: IuseActivityParams) => {
-  //FILL HERE 3.7
+const useIsVerified = ({
+  activity,
+  role,
+  activities,
+}: IuseActivityParams): boolean => {
+  const roleIndex = roles.indexOf(role);
+  const activityIndex = activities.indexOf(activity);
+
+  return roleIndex >= activityIndex;
 };
 
 export default useIsVerified;
